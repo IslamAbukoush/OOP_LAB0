@@ -3,30 +3,15 @@ package org.example;
 import java.util.List;
 
 public class Individual {
-    private String universe;
-    private String specie;
-    private int id;
+    private Integer id;
     private Boolean isHumanoid;
     private String planet;
     private int age;
     private List<String> traits;
+    private String universe;
+    private String type;
 
     // getters and setters
-    public String getUniverse() {
-        return universe;
-    }
-    public void setUniverse(String universe) {
-        this.universe = universe;
-    }
-
-    public String getSpecie() {
-        return specie;
-    }
-
-    public void setSpecie(String specie) {
-        this.specie = specie;
-    }
-
     public Boolean getIsHumanoid() {
         return isHumanoid;
     }
@@ -47,7 +32,7 @@ public class Individual {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -67,4 +52,19 @@ public class Individual {
         this.id = id;
     }
 
+    public String setUniverse() {
+        return universe;
+    }
+
+    public void getUniverse(String universe) {
+        this.universe = universe;
+    }
+
+    public String setType() {
+        return type;
+    }
+
+    public void getType(String type) {
+        this.type = type;
+    }
 }
