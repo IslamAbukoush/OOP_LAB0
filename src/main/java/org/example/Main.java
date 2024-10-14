@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.example.Json.*;
+import static org.example.View.view;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -16,11 +17,11 @@ public class Main {
         JSONArray inputArray = jsonData.getJSONArray("input");
         List<Individual> individuals = individualsJsonListToIndividualsList(inputArray);
 
-        List<Individual> starWars = new ArrayList<Individual>();
-        List<Individual> marvel = new ArrayList<Individual>();
-        List<Individual> hitchhiker = new ArrayList<Individual>();
-        List<Individual> lordOfTheRings = new ArrayList<Individual>();
-        List<Individual> unspecified = new ArrayList<Individual>();
+        Universe starWars = new Universe("StarWars", new ArrayList<Individual>());
+        Universe marvel = new Universe("Marvel", new ArrayList<Individual>());
+        Universe hitchhiker = new Universe("Hitchhiker", new ArrayList<Individual>());
+        Universe lordOfTheRings = new Universe("LordOfTheRings", new ArrayList<Individual>());
+        Universe unspecified = new Universe("Unspecified", new ArrayList<Individual>());
 
         // start filtering
         for (Individual ind : individuals) {
@@ -98,37 +99,32 @@ public class Main {
                 // individuals with a single possibility
                 type = pb.getPossibilities().get(0);
                 if (type.equals("Wookie") || type.equals("Ewok")) {
-                    starWars.add(ind);
+                    starWars.getIndividuals().add(ind);
                 } else if (type.equals("Asgardian")) {
-                    marvel.add(ind);
+                    marvel.getIndividuals().add(ind);
                 } else if (type.equals("Betelgeusian") || type.equals("Vogons")) {
-                    hitchhiker.add(ind);
+                    hitchhiker.getIndividuals().add(ind);
                 } else if (type.equals("Elf")) {  // Fixed duplicate check
-                    lordOfTheRings.add(ind);
+                    lordOfTheRings.getIndividuals().add(ind);
                 }
             } else if (pb.getPossibilities().size() == 2) {
                 // individuals with 2 matching possibilities
                 type = pb.getPossibilities().get(0);
                 type2 = pb.getPossibilities().get(1);
                 if ((type.equals("Wookie") && type2.equals("Ewok")) || (type.equals("Ewok") && type2.equals("Wookie"))) {
-                    starWars.add(ind);
+                    starWars.getIndividuals().add(ind);
                 } else if ((type.equals("Betelgeusian") && type2.equals("Vogons")) || (type2.equals("Betelgeusian") && type.equals("Vogons"))) {
-                    hitchhiker.add(ind);
+                    hitchhiker.getIndividuals().add(ind);
                 } else if ((type.equals("Elf") && type2.equals("Elf")) || (type2.equals("Elf") && type.equals("Elf"))) {
-                    lordOfTheRings.add(ind);
+                    lordOfTheRings.getIndividuals().add(ind);
                 } else {
-                    unspecified.add(ind);
+                    unspecified.getIndividuals().add(ind);
                 }
             } else {
                 // individuals with too many possibilities
-                unspecified.add(ind);
+                unspecified.getIndividuals().add(ind);
             }
         }
-
-        saveUniverseToFile("StarWars", starWars);
-        saveUniverseToFile("Marvel", marvel);
-        saveUniverseToFile("Hitchhiker", hitchhiker);
-        saveUniverseToFile("LordOfTheRings", lordOfTheRings);
-        saveUniverseToFile("Unspecified", unspecified);
+        view(starWars, marvel, hitchhiker, lordOfTheRings, unspecified);
     }
 }
