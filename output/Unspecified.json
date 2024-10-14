@@ -1,4 +1,13 @@
 {
   "name": "Unspecified",
-  "individuals": []
+  "individuals": [{
+    "isHumanoid": true,
+    "traits": [
+      "BLONDE",
+      "TALL"
+    ],
+    "planet": "Earth",
+    "id": 19,
+    "age": 451
+  }]
 }

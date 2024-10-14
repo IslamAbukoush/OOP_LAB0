@@ -16,16 +16,6 @@
       "traits": [],
       "id": 12,
       "age": 7523
-    },
-    {
-      "isHumanoid": true,
-      "traits": [
-        "BLONDE",
-        "TALL"
-      ],
-      "planet": "Earth",
-      "id": 19,
-      "age": 451
     }
   ]
 }
