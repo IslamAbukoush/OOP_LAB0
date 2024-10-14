@@ -8,8 +8,6 @@ public class Individual {
     private String planet;
     private int age;
     private List<String> traits;
-    private String universe;
-    private String type;
 
     // getters and setters
     public Boolean getIsHumanoid() {
@@ -50,21 +48,5 @@ public class Individual {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String setUniverse() {
-        return universe;
-    }
-
-    public void getUniverse(String universe) {
-        this.universe = universe;
-    }
-
-    public String setType() {
-        return type;
-    }
-
-    public void getType(String type) {
-        this.type = type;
     }
 }

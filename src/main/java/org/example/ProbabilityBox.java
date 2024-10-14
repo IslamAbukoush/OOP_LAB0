@@ -22,4 +22,8 @@ public class ProbabilityBox {
     public List<String> getPossibilities() {
         return possibilities;
     }
+
+    public boolean shouldBother() {
+        return getPossibilities().size() != 1;
+    }
 }

@@ -1,0 +1,31 @@
+{
+  "name": "LordOfTheRings",
+  "individuals": [
+    {
+      "isHumanoid": true,
+      "traits": [
+        "BLONDE",
+        "POINTY_EARS"
+      ],
+      "planet": "Earth",
+      "id": 5,
+      "age": 451
+    },
+    {
+      "isHumanoid": true,
+      "traits": [],
+      "id": 12,
+      "age": 7523
+    },
+    {
+      "isHumanoid": true,
+      "traits": [
+        "BLONDE",
+        "TALL"
+      ],
+      "planet": "Earth",
+      "id": 19,
+      "age": 451
+    }
+  ]
+}

@@ -5,34 +5,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.Json.*;
+
 public class Main {
     public static void main(String[] args) throws IOException {
-        String dataString = Json.loadFileString("input.json");
 
+        // handle input
+        String dataString = Json.loadFileString("input.json");
         JSONObject jsonData = new JSONObject(dataString);
         JSONArray inputArray = jsonData.getJSONArray("input");
+        List<Individual> individuals = individualsJsonListToIndividualsList(inputArray);
 
-        List<Individual> individuals = new ArrayList<>();
-        for (int i = 0; i < inputArray.length(); i++) {
-            Individual individual = new Individual();
-            JSONObject alien = inputArray.getJSONObject(i);
-
-            individual.setId(alien.optInt("id", -1));
-            individual.setIsHumanoid(alien.has("isHumanoid") ? alien.getBoolean("isHumanoid") : null);
-            individual.setPlanet(alien.optString("planet", "Unknown"));
-            individual.setAge(alien.optInt("age", 0));
-            individual.setTraits(Json.jsonArrayToList(alien.optJSONArray("traits")));
-
-            individuals.add(individual);
-        }
         List<Individual> starWars = new ArrayList<Individual>();
         List<Individual> marvel = new ArrayList<Individual>();
         List<Individual> hitchhiker = new ArrayList<Individual>();
         List<Individual> lordOfTheRings = new ArrayList<Individual>();
         List<Individual> unspecified = new ArrayList<Individual>();
 
+        // start filtering
         for (Individual ind : individuals) {
+            // setup probability box
             ProbabilityBox pb = new ProbabilityBox();
+
             // filter by planet
             String planet = ind.getPlanet();
             if(planet != null) {
@@ -45,18 +39,20 @@ public class Main {
                     case "Earth" -> pb.possible("Elf", "Dwarf");
                 }
             }
-            // filter by is humanoid
+
+            // filter by isHumanoid
             Boolean isHumanoid = ind.getIsHumanoid();
-            if(isHumanoid != null) {
+            if(isHumanoid != null && pb.shouldBother()) {
                 if(isHumanoid) {
                     pb.possible("Asgardian", "Betelgeusian", "Elf", "Dwarf");
                 } else {
                     pb.possible("Wookie", "Ewok", "Vogons");
                 }
             }
+
             // filter by age
             Integer age = ind.getAge();
-            if(age != null) {
+            if(age != null && pb.shouldBother()) {
                 if (age <= 60) {
                     pb.possible("Asgardian", "Betelgeusian", "Elf", "Dwarf", "Wookie", "Ewok", "Vogons");
                 } else if (age <= 100) {
@@ -71,9 +67,10 @@ public class Main {
                     pb.possible("Elf");
                 }
             }
+
             // filter by traits
             List<String> traits = ind.getTraits();
-            if(!traits.isEmpty()) {
+            if(traits != null && !traits.isEmpty() && pb.shouldBother()) {
                 // individual traits
                 if(traits.contains("HAIRY")) pb.possible("Wookie", "Ewok");
                 if(traits.contains("TALL")) pb.possible("Wookie", "Asgardian");
@@ -97,30 +94,41 @@ public class Main {
             // determine universe
             String type = "Unspecified";
             String type2 = "Unspecified";
-            if(pb.getPossibilities().size() == 1) {
-                // individuals with a single possibilities
+            if (pb.getPossibilities().size() == 1) {
+                // individuals with a single possibility
                 type = pb.getPossibilities().get(0);
-                if (type == "Wookie" || type == "Ewok") starWars.add(ind);
-                else if (type == "Asgardian") marvel.add(ind);
-                else if (type == "Betelgeusian" || type == "Vogons") hitchhiker.add(ind);
-                else if (type == "Elf" || type == "Elf") lordOfTheRings.add(ind);
+                if (type.equals("Wookie") || type.equals("Ewok")) {
+                    starWars.add(ind);
+                } else if (type.equals("Asgardian")) {
+                    marvel.add(ind);
+                } else if (type.equals("Betelgeusian") || type.equals("Vogons")) {
+                    hitchhiker.add(ind);
+                } else if (type.equals("Elf")) {  // Fixed duplicate check
+                    lordOfTheRings.add(ind);
+                }
             } else if (pb.getPossibilities().size() == 2) {
                 // individuals with 2 matching possibilities
                 type = pb.getPossibilities().get(0);
                 type2 = pb.getPossibilities().get(1);
-                if ((type == "Wookie" && type2 == "Ewok") || (type == "Ewok" && type2 == "Wookie")) starWars.add(ind);
-                else if ((type == "Betelgeusian" && type2 == "Vogons") || (type2 == "Betelgeusian" && type == "Vogons")) hitchhiker.add(ind);
-                else if ((type == "Elf" && type2 == "Elf") || (type2 == "Elf" && type == "Elf")) lordOfTheRings.add(ind);
-                else unspecified.add(ind);
+                if ((type.equals("Wookie") && type2.equals("Ewok")) || (type.equals("Ewok") && type2.equals("Wookie"))) {
+                    starWars.add(ind);
+                } else if ((type.equals("Betelgeusian") && type2.equals("Vogons")) || (type2.equals("Betelgeusian") && type.equals("Vogons"))) {
+                    hitchhiker.add(ind);
+                } else if ((type.equals("Elf") && type2.equals("Elf")) || (type2.equals("Elf") && type.equals("Elf"))) {
+                    lordOfTheRings.add(ind);
+                } else {
+                    unspecified.add(ind);
+                }
             } else {
                 // individuals with too many possibilities
                 unspecified.add(ind);
             }
         }
-        System.out.println(starWars);
-        System.out.println(marvel);
-        System.out.println(hitchhiker);
-        System.out.println(lordOfTheRings);
-        System.out.println(unspecified);
+
+        saveUniverseToFile("StarWars", starWars);
+        saveUniverseToFile("Marvel", marvel);
+        saveUniverseToFile("Hitchhiker", hitchhiker);
+        saveUniverseToFile("LordOfTheRings", lordOfTheRings);
+        saveUniverseToFile("Unspecified", unspecified);
     }
 }
