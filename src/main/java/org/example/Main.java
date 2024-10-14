@@ -30,21 +30,27 @@ public class Main {
 
             // filter by planet
             String planet = ind.getPlanet();
-            if(planet != null) {
+            if (planet != null) {
                 switch (planet) {
-                    case "Kashyyk"-> pb.possible("Wookie");
-                    case "Endor" -> pb.possible("Ewok");
-                    case "Asgard" -> pb.possible("Asgardian");
-                    case "BETELGEUSE" -> pb.possible("Betelgeusian");
-                    case "Vogsphere" -> pb.possible("Vogons");
-                    case "Earth" -> pb.possible("Elf", "Dwarf");
+                    case "Kashyyyk": pb.possible("Wookie");
+                        break;
+                    case "Endor": pb.possible("Ewok");
+                        break;
+                    case "Asgard": pb.possible("Asgardian");
+                        break;
+                    case "BETELGEUSE": pb.possible("Betelgeusian");
+                        break;
+                    case "Vogsphere": pb.possible("Vogons");
+                        break;
+                    case "Earth": pb.possible("Elf", "Dwarf");
+                        break;
                 }
             }
 
             // filter by isHumanoid
             Boolean isHumanoid = ind.getIsHumanoid();
-            if(isHumanoid != null && pb.shouldBother()) {
-                if(isHumanoid) {
+            if (isHumanoid != null) {
+                if (isHumanoid) {
                     pb.possible("Asgardian", "Betelgeusian", "Elf", "Dwarf");
                 } else {
                     pb.possible("Wookie", "Ewok", "Vogons");
@@ -53,14 +59,14 @@ public class Main {
 
             // filter by age
             Integer age = ind.getAge();
-            if(age != null && pb.shouldBother()) {
+            if (age != null) {
                 if (age <= 60) {
                     pb.possible("Asgardian", "Betelgeusian", "Elf", "Dwarf", "Wookie", "Ewok", "Vogons");
                 } else if (age <= 100) {
                     pb.possible("Asgardian", "Betelgeusian", "Elf", "Dwarf", "Wookie", "Vogons");
-                }else if (age <= 200) {
+                } else if (age <= 200) {
                     pb.possible("Asgardian", "Elf", "Dwarf", "Wookie", "Vogons");
-                }else if (age <= 400) {
+                } else if (age <= 400) {
                     pb.possible("Asgardian", "Elf", "Wookie");
                 } else if (age <= 5000) {
                     pb.possible("Asgardian", "Elf");
@@ -71,33 +77,32 @@ public class Main {
 
             // filter by traits
             List<String> traits = ind.getTraits();
-            if(traits != null && !traits.isEmpty() && pb.shouldBother()) {
+            if (traits != null && !traits.isEmpty()) {
                 // individual traits
-                if(traits.contains("HAIRY")) pb.possible("Wookie", "Ewok");
-                if(traits.contains("TALL")) pb.possible("Wookie", "Asgardian");
-                if(traits.contains("SHORT")) pb.possible("Dwarf", "Ewok");
-                if(traits.contains("BLONDE")) pb.possible("Elf", "Asgardian");
-                if(traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
-                if(traits.contains("GREEN")) pb.possible("Vogons");
-                if(traits.contains("POINTY_EARS")) pb.possible("Elf");
-                if(traits.contains("BULKY")) pb.possible("Dwarf", "Vogons");
+                if (traits.contains("HAIRY")) pb.possible("Wookie", "Ewok");
+                if (traits.contains("TALL")) pb.possible("Wookie", "Asgardian");
+                if (traits.contains("SHORT")) pb.possible("Dwarf", "Ewok");
+                if (traits.contains("BLONDE")) pb.possible("Elf", "Asgardian");
+                if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
+                if (traits.contains("GREEN")) pb.possible("Vogons");
+                if (traits.contains("POINTY_EARS")) pb.possible("Elf");
+                if (traits.contains("BULKY")) pb.possible("Dwarf", "Vogons");
 
                 // combined traits
-                if(traits.contains("HAIRY") && traits.contains("TALL")) pb.possible("Wookie");
-                if(traits.contains("HAIRY") && traits.contains("SHORT")) pb.possible("Ewok");
-                if(traits.contains("BLONDE") && traits.contains("TALL")) pb.possible("Asgardian");
-                if(traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
-                if(traits.contains("GREEN") && traits.contains("BULKY")) pb.possible("Vogons");
-                if(traits.contains("BLONDE") && traits.contains("POINTY_EARS")) pb.possible("Elf");
-                if(traits.contains("SHORT") && traits.contains("BULKY")) pb.possible("Dwarf");
+                if (traits.contains("HAIRY") && traits.contains("TALL")) pb.possible("Wookie");
+                if (traits.contains("HAIRY") && traits.contains("SHORT")) pb.possible("Ewok");
+                if (traits.contains("BLONDE") && traits.contains("TALL")) pb.possible("Asgardian");
+                if (traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
+                if (traits.contains("GREEN") && traits.contains("BULKY")) pb.possible("Vogons");
+                if (traits.contains("BLONDE") && traits.contains("POINTY_EARS")) pb.possible("Elf");
+                if (traits.contains("SHORT") && traits.contains("BULKY")) pb.possible("Dwarf");
             }
-
             // determine universe
             String type = "Unspecified";
             String type2 = "Unspecified";
             if (pb.getPossibilities().size() == 1) {
                 // individuals with a single possibility
-                type = pb.getPossibilities().get(0);
+                type = pb.getPossibilities().getFirst();
                 if (type.equals("Wookie") || type.equals("Ewok")) {
                     starWars.getIndividuals().add(ind);
                 } else if (type.equals("Asgardian")) {
