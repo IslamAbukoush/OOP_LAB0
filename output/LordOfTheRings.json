@@ -9,12 +9,14 @@
       ],
       "planet": "Earth",
       "id": 5,
+      "type": "Elf",
       "age": 451
     },
     {
       "isHumanoid": true,
       "traits": [],
       "id": 12,
+      "type": "Elf",
       "age": 7523
     }
   ]

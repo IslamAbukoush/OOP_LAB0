@@ -6,8 +6,9 @@ public class Individual {
     private Integer id;
     private Boolean isHumanoid;
     private String planet;
-    private int age;
+    private Integer age;
     private List<String> traits;
+    private String type;
 
     // getters and setters
     public Boolean getIsHumanoid() {
@@ -26,7 +27,7 @@ public class Individual {
         this.planet = planet;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -48,5 +49,13 @@ public class Individual {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

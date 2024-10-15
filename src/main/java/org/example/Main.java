@@ -1,7 +1,10 @@
 package org.example;
+
 import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +35,23 @@ public class Main {
             String planet = ind.getPlanet();
             if (planet != null) {
                 switch (planet) {
-                    case "Kashyyyk": pb.possible("Wookie");
+                    case "Kashyyyk":
+                        pb.possible("Wookie");
                         break;
-                    case "Endor": pb.possible("Ewok");
+                    case "Endor":
+                        pb.possible("Ewok");
                         break;
-                    case "Asgard": pb.possible("Asgardian");
+                    case "Asgard":
+                        pb.possible("Asgardian");
                         break;
-                    case "BETELGEUSE": pb.possible("Betelgeusian");
+                    case "BETELGEUSE":
+                        pb.possible("Betelgeusian");
                         break;
-                    case "Vogsphere": pb.possible("Vogons");
+                    case "Vogsphere":
+                        pb.possible("Vogons");
                         break;
-                    case "Earth": pb.possible("Elf", "Dwarf");
+                    case "Earth":
+                        pb.possible("Elf", "Dwarf");
                         break;
                 }
             }
@@ -78,24 +87,26 @@ public class Main {
             // filter by traits
             List<String> traits = ind.getTraits();
             if (traits != null && !traits.isEmpty()) {
-                // individual traits
-                if (traits.contains("HAIRY")) pb.possible("Wookie", "Ewok");
-                if (traits.contains("TALL")) pb.possible("Wookie", "Asgardian");
-                if (traits.contains("SHORT")) pb.possible("Dwarf", "Ewok");
-                if (traits.contains("BLONDE")) pb.possible("Elf", "Asgardian");
-                if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
-                if (traits.contains("GREEN")) pb.possible("Vogons");
-                if (traits.contains("POINTY_EARS")) pb.possible("Elf");
-                if (traits.contains("BULKY")) pb.possible("Dwarf", "Vogons");
-
-                // combined traits
-                if (traits.contains("HAIRY") && traits.contains("TALL")) pb.possible("Wookie");
-                if (traits.contains("HAIRY") && traits.contains("SHORT")) pb.possible("Ewok");
-                if (traits.contains("BLONDE") && traits.contains("TALL")) pb.possible("Asgardian");
-                if (traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
-                if (traits.contains("GREEN") && traits.contains("BULKY")) pb.possible("Vogons");
-                if (traits.contains("BLONDE") && traits.contains("POINTY_EARS")) pb.possible("Elf");
-                if (traits.contains("SHORT") && traits.contains("BULKY")) pb.possible("Dwarf");
+                if(traits.size() == 1) {
+                    // individual traits
+                    if (traits.contains("HAIRY")) pb.possible("Wookie", "Ewok");
+                    if (traits.contains("TALL")) pb.possible("Wookie", "Asgardian");
+                    if (traits.contains("SHORT")) pb.possible("Dwarf", "Ewok");
+                    if (traits.contains("BLONDE")) pb.possible("Elf", "Asgardian");
+                    if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
+                    if (traits.contains("GREEN")) pb.possible("Vogons");
+                    if (traits.contains("POINTY_EARS")) pb.possible("Elf");
+                    if (traits.contains("BULKY")) pb.possible("Dwarf", "Vogons");
+                } else if(traits.size() == 2) {
+                    // combined traits
+                    if (traits.contains("HAIRY") && traits.contains("TALL")) pb.possible("Wookie");
+                    if (traits.contains("HAIRY") && traits.contains("SHORT")) pb.possible("Ewok");
+                    if (traits.contains("BLONDE") && traits.contains("TALL")) pb.possible("Asgardian");
+                    if (traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) pb.possible("Betelgeusian");
+                    if (traits.contains("GREEN") && traits.contains("BULKY")) pb.possible("Vogons");
+                    if (traits.contains("BLONDE") && traits.contains("POINTY_EARS")) pb.possible("Elf");
+                    if (traits.contains("SHORT") && traits.contains("BULKY")) pb.possible("Dwarf");
+                }
             }
             // determine universe
             String type = "Unspecified";
@@ -128,6 +139,11 @@ public class Main {
             } else {
                 // individuals with too many possibilities
                 unspecified.getIndividuals().add(ind);
+            }
+            if(pb.getPossibilities().size() == 1) {
+                ind.setType(pb.getPossibilities().getFirst());
+            } else {
+                ind.setType("Unknown");
             }
         }
         view(starWars, marvel, hitchhiker, lordOfTheRings, unspecified);

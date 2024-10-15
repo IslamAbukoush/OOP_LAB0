@@ -9,6 +9,7 @@
       ],
       "planet": "Asgard",
       "id": 2,
+      "type": "Asgardian",
       "age": 2034
     },
     {
@@ -19,7 +20,7 @@
       ],
       "planet": "Asgard",
       "id": 9,
-      "age": -1
+      "type": "Asgardian"
     },
     {
       "isHumanoid": true,
@@ -28,6 +29,7 @@
         "TALL"
       ],
       "id": 16,
+      "type": "Asgardian",
       "age": 154
     }
   ]
