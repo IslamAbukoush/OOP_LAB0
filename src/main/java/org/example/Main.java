@@ -120,7 +120,7 @@ public class Main {
                     marvel.getIndividuals().add(ind);
                 } else if (type.equals("Betelgeusian") || type.equals("Vogons")) {
                     hitchhiker.getIndividuals().add(ind);
-                } else if (type.equals("Elf")) {  // Fixed duplicate check
+                } else if (type.equals("Elf") || type.equals("Dwarf")) {  // Fixed duplicate check
                     lordOfTheRings.getIndividuals().add(ind);
                 }
             } else if (pb.getPossibilities().size() == 2) {
@@ -131,7 +131,7 @@ public class Main {
                     starWars.getIndividuals().add(ind);
                 } else if ((type.equals("Betelgeusian") && type2.equals("Vogons")) || (type2.equals("Betelgeusian") && type.equals("Vogons"))) {
                     hitchhiker.getIndividuals().add(ind);
-                } else if ((type.equals("Elf") && type2.equals("Elf")) || (type2.equals("Elf") && type.equals("Elf"))) {
+                } else if ((type.equals("Elf") && type2.equals("Dwarf")) || (type2.equals("Elf") && type.equals("Dwarf"))) {
                     lordOfTheRings.getIndividuals().add(ind);
                 } else {
                     unspecified.getIndividuals().add(ind);
@@ -145,6 +145,7 @@ public class Main {
             } else {
                 ind.setType("Unknown");
             }
+            System.out.println(ind.getId() + " : " + ind.getType());
         }
         view(starWars, marvel, hitchhiker, lordOfTheRings, unspecified);
     }
