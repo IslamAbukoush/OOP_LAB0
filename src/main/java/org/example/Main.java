@@ -140,8 +140,11 @@ public class Main {
                 // individuals with too many possibilities
                 unspecified.getIndividuals().add(ind);
             }
-            System.out.println(ind.getId());
-            System.out.println(pb.getPossibilities());
+            if(pb.getPossibilities().size() == 1) {
+                ind.setType(pb.getPossibilities().getFirst());
+            } else {
+                ind.setType("Unknown");
+            }
         }
         view(starWars, marvel, hitchhiker, lordOfTheRings, unspecified);
     }

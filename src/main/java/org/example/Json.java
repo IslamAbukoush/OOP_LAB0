@@ -38,6 +38,7 @@ public class Json {
     public static JSONObject individualToJson(Individual ind) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", ind.getId());
+        jsonObject.put("type", ind.getType());
         jsonObject.put("isHumanoid", ind.getIsHumanoid());
         jsonObject.put("planet", ind.getPlanet());
         jsonObject.put("age", ind.getAge());
@@ -49,7 +50,7 @@ public class Json {
         individual.setId(object.optInt("id", -1));
         individual.setIsHumanoid(object.has("isHumanoid") ? object.getBoolean("isHumanoid") : null);
         individual.setPlanet(object.optString("planet", null));
-        individual.setAge(object.optInt("age", -1));
+        individual.setAge(object.optIntegerObject("age", null));
         individual.setTraits(Json.jsonArrayToList(object.optJSONArray("traits")));
         return individual;
     }

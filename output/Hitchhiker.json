@@ -9,6 +9,7 @@
       ],
       "planet": "Betelgeuse",
       "id": 3,
+      "type": "Betelgeusian",
       "age": 59
     },
     {
@@ -19,6 +20,7 @@
       ],
       "planet": "Vogsphere",
       "id": 4,
+      "type": "Vogons",
       "age": 128
     },
     {
@@ -28,28 +30,32 @@
       ],
       "planet": "Betelgeuse",
       "id": 10,
+      "type": "Betelgeusian",
       "age": 45
     },
     {
       "isHumanoid": false,
       "traits": ["GREEN"],
       "id": 11,
+      "type": "Vogons",
       "age": 128
     },
     {
       "traits": ["EXTRA_ARMS"],
       "id": 17,
+      "type": "Betelgeusian",
       "age": 26
     },
     {
       "isHumanoid": false,
       "traits": ["BULKY"],
       "id": 18,
-      "age": -1
+      "type": "Vogons"
     },
     {
       "traits": ["EXTRA_HEAD"],
       "id": 21,
+      "type": "Betelgeusian",
       "age": 82
     }
   ]

@@ -9,6 +9,7 @@
       ],
       "planet": "Kashyyyk",
       "id": 0,
+      "type": "Wookie",
       "age": 253
     },
     {
@@ -19,6 +20,7 @@
       ],
       "planet": "Endor",
       "id": 1,
+      "type": "Ewok",
       "age": 34
     },
     {
@@ -28,6 +30,7 @@
       ],
       "planet": "Kashyyyk",
       "id": 7,
+      "type": "Wookie",
       "age": 352
     },
     {
@@ -35,6 +38,7 @@
       "traits": [],
       "planet": "Endor",
       "id": 8,
+      "type": "Ewok",
       "age": 22
     },
     {
@@ -44,13 +48,14 @@
         "TALL"
       ],
       "id": 14,
+      "type": "Wookie",
       "age": 253
     },
     {
       "traits": [],
       "planet": "Endor",
       "id": 15,
-      "age": -1
+      "type": "Ewok"
     }
   ]
 }
