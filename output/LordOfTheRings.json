@@ -14,10 +14,36 @@
     },
     {
       "isHumanoid": true,
+      "traits": [
+        "SHORT",
+        "BULKY"
+      ],
+      "planet": "Earth",
+      "id": 6,
+      "type": "Dwarf",
+      "age": 124
+    },
+    {
+      "isHumanoid": true,
       "traits": [],
       "id": 12,
       "type": "Elf",
       "age": 7523
+    },
+    {
+      "traits": [
+        "SHORT",
+        "BULKY"
+      ],
+      "planet": "Earth",
+      "id": 13,
+      "type": "Dwarf"
+    },
+    {
+      "isHumanoid": true,
+      "traits": ["BULKY"],
+      "id": 20,
+      "type": "Dwarf"
     }
   ]
 }
